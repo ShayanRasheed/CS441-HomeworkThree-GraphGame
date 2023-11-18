@@ -1,0 +1,45 @@
+[0m[[0m[0mdebug[0m] [0m[0mPackaging /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/ngsconverter_2.13-0.1.0-SNAPSHOT.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	logback.xml[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/logback.xml[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NetGraphAlgebraDefs[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/NetGraphAlgebraDefs[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NetGraphAlgebraDefs/NodeObject$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/NetGraphAlgebraDefs/NodeObject$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NetGraphAlgebraDefs/Action$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/NetGraphAlgebraDefs/Action$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NetGraphAlgebraDefs/TerminalNode.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/NetGraphAlgebraDefs/TerminalNode.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NetGraphAlgebraDefs/TerminalNode$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/NetGraphAlgebraDefs/TerminalNode$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NetGraphAlgebraDefs/NodeObject.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/NetGraphAlgebraDefs/NodeObject.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NetGraphAlgebraDefs/NetGraphComponent.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/NetGraphAlgebraDefs/NetGraphComponent.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NetGraphAlgebraDefs/TerminalAction.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/NetGraphAlgebraDefs/TerminalAction.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NetGraphAlgebraDefs/Action.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/NetGraphAlgebraDefs/Action.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	NetGraphAlgebraDefs/TerminalAction$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/NetGraphAlgebraDefs/TerminalAction$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	application.conf[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/application.conf[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/com[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com/cvt[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/com/cvt[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com/cvt/loadGraph$$anonfun$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/com/cvt/loadGraph$$anonfun$2.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com/cvt/Main[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/com/cvt/Main[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com/cvt/Main/Main$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/com/cvt/Main/Main$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com/cvt/Main/Main.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/com/cvt/Main/Main.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com/cvt/loadGraph.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/com/cvt/loadGraph.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com/cvt/loadGraph$$anonfun$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/com/cvt/loadGraph$$anonfun$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	com/cvt/loadGraph$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  /Users/shayanrasheed/Documents/Cloud Computing/GraphGame/ngsConverter/target/scala-2.13/classes/com/cvt/loadGraph$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mDone packaging.[0m
