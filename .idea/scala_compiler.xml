@@ -2,5 +2,10 @@
 <project version="4">
   <component name="ScalaCompilerConfiguration">
     <profile name="sbt 1" modules="GraphGame" />
+    <profile name="sbt 2" modules="GraphWalks">
+      <option name="compileOrder" value="JavaThenScala" />
+      <option name="deprecationWarnings" value="true" />
+      <option name="featureWarnings" value="true" />
+    </profile>
   </component>
 </project>

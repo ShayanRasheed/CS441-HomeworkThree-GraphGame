@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GraphGame.iml" filepath="$PROJECT_DIR$/.idea/modules/GraphGame.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GraphGame-build.iml" filepath="$PROJECT_DIR$/.idea/modules/GraphGame-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GraphWalks.iml" filepath="$PROJECT_DIR$/.idea/modules/GraphWalks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/GraphWalks-build.iml" filepath="$PROJECT_DIR$/.idea/modules/GraphWalks-build.iml" />
     </modules>
   </component>
 </project>
