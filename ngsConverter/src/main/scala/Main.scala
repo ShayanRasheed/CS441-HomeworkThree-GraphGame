@@ -1,4 +1,4 @@
-package com.cvt.Main
+package com.cvt
 
 import com.typesafe.config.ConfigFactory
 import org.slf4j.LoggerFactory

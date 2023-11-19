@@ -6,11 +6,13 @@ import java.io._
 import java.net.URL
 import scala.io.Source
 import scala.util.{Failure, Success, Try}
-
 import com.google.common.graph.{GraphBuilder, MutableGraph}
 
-object GraphLoader {
+import scala.collection.mutable.ListBuffer
+
+class GraphLoader {
   private val logger = LoggerFactory.getLogger(getClass)
+  private val valuableNodes: ListBuffer[Int] = ListBuffer.empty
 
   // LOAD GRAPH
   // Creates graph object from text file produced by ngsConverter
@@ -30,14 +32,18 @@ object GraphLoader {
 
       source.getLines.foreach { line =>
         val parts = line.split(" ")
-        parts.map {
-          case str if str.forall(_.isDigit) => graph.putEdge(parts(0), parts(1))
-          case "true" | "false" => graph.addNode(parts(0))
+        parts.length match {
+          case 2 => graph.putEdge(parts(0), parts(1))
+          case 3 => graph.addNode(parts(1))
+            if(parts(2).equals("true")) {
+              valuableNodes += parts(1).toInt
+            }
         }
       }
 
       source.close()
       println(graph.toString)
+      println(valuableNodes)
 
       graph
     } match {

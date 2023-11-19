@@ -50,7 +50,7 @@ object loadGraph {
         logger.info(s"Outputting graph info to $outputPath")
 
         vertices.foreach { vertex =>
-          writer.println(s"${vertex._1} ${vertex._2}")
+          writer.println(s"Node ${vertex._1} ${vertex._2}")
         }
         edges.foreach { edge =>
           writer.println(s"${edge._1} ${edge._2}")
