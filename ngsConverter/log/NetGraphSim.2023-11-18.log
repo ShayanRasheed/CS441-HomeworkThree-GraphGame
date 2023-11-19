@@ -1,6 +1,0 @@
-16:38:15.376 [main] INFO  - Loading Graph Info from /Users/shayanrasheed/Documents/Cloud Computing/NetGraph_18-11-23-13-07-16.ngs
-16:38:15.592 [main] INFO  - Returning Graph Object
-16:38:15.642 [main] INFO  - Outputting graph info to /Users/shayanrasheed/Documents/Cloud Computing/Output/original.txt
-16:38:15.645 [main] INFO  - Loading Graph Info from /Users/shayanrasheed/Documents/Cloud Computing/NetGraph_18-11-23-13-07-16.ngs.perturbed
-16:38:15.686 [main] INFO  - Returning Graph Object
-16:38:15.702 [main] INFO  - Outputting graph info to /Users/shayanrasheed/Documents/Cloud Computing/Output/perturbed.txt
