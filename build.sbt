@@ -22,7 +22,8 @@ lazy val commonDependencies = Seq(
   "ch.qos.logback" % "logback-classic" % logbackVersion, // Logback Classic Logger
   "org.slf4j" % "slf4j-api" % sfl4sVersion, // SLF4J API Module
   "org.scalatest" %% "scalatest" % scalaTestVersion % Test, // ScalaTest for testing
-  "org.yaml" % "snakeyaml" % "2.0"
+  "org.yaml" % "snakeyaml" % "2.0",
+  "com.google.guava" % "guava" % "30.1-jre",
 )
 
 // Define your project and its dependencies.
@@ -47,8 +48,6 @@ run / javaOptions ++= Seq(
   "-Xmx2G", // Maximum JVM heap size
   "-XX:+UseG1GC" // Use G1 Garbage Collector
 )
-
-//scalacOptions ++= Seq("-target:jvm-1.8")
 
 exportJars := true
 
