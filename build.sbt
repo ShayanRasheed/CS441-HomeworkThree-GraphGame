@@ -24,6 +24,12 @@ lazy val commonDependencies = Seq(
   "org.scalatest" %% "scalatest" % scalaTestVersion % Test, // ScalaTest for testing
   "org.yaml" % "snakeyaml" % "2.0",
   "com.google.guava" % "guava" % "30.1-jre",
+  "com.typesafe.akka" %% "akka-http" % "10.5.0",
+  "com.typesafe.akka" %% "akka-stream" % "2.8.0",
+  "com.typesafe.akka" %% "akka-http-spray-json" % "10.5.0",
+  "com.typesafe.akka" %% "akka-actor-typed" % "2.8.0",
+  "com.typesafe.akka" %% "akka-stream-typed" % "2.8.0",
+  "com.typesafe.akka" %% "akka-actor" % "2.8.0"
 )
 
 // Define your project and its dependencies.

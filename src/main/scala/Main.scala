@@ -3,15 +3,46 @@ package com.lsc
 import com.typesafe.config.ConfigFactory
 import org.slf4j.LoggerFactory
 
+import akka.actor.typed.ActorSystem
+import akka.actor.typed.scaladsl.Behaviors
+import akka.http.scaladsl.Http
+import akka.http.scaladsl.model._
+import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.Route.seal
+import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
+import spray.json.DefaultJsonProtocol._
+import spray.json.RootJsonFormat
+
+import scala.concurrent.ExecutionContextExecutor
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
+
 object Main {
   private val config = ConfigFactory.load()
   private val logger = LoggerFactory.getLogger(getClass)
 
-  private val origLoader = new GraphLoader()
-  private val perturbedLoader = new GraphLoader()
+  private val origLoader = new GraphLoader(config.getString("Local.originalFilePath"))
+  private val perturbedLoader = new GraphLoader(config.getString("Local.perturbedFilePath"))
 
   def main(args: Array[String]): Unit = {
-    val originalGraph = origLoader.loadGraph(config.getString("Local.originalFilePath"))
-    val perturbedGraph = perturbedLoader.loadGraph(config.getString("Local.perturbedFilePath"))
+    implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "my-system")
+    // needed for the future flatMap/onComplete in the end
+    implicit val executionContext: ExecutionContextExecutor = system.executionContext
+
+    val route =
+      path("hello") {
+        get {
+          complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>Say hello to akka-http</h1>"))
+        }
+      }
+
+    val bindingFuture = Http().newServerAt("localhost", 8080).bind(route)
+
+    println(s"Server now online. Please navigate to http://localhost:8080/hello")
+    scala.sys.addShutdownHook {
+      bindingFuture
+        .flatMap(_.unbind()) // trigger unbinding from the port
+        .onComplete(_ => system.terminate()) // and shutdown when done
+    }
   }
 }
