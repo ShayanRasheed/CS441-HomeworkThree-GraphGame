@@ -26,19 +26,39 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "my-system")
-    // needed for the future flatMap/onComplete in the end
+
     implicit val executionContext: ExecutionContextExecutor = system.executionContext
 
+    // Var to hold the version of the game being used
+    var version = ""
+
     val route =
-      path("hello") {
+      path("police") {
         get {
-          complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>Say hello to akka-http</h1>"))
+          if(version.length < 1) {
+            version = "police"
+            complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>You chose to play the role of Policeman</h1>"))
+          }
+          else {
+            complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>You've already selected a role'</h1>"))
+          }
         }
-      }
+      } ~
+        path("thief") {
+          get {
+            if(version.length < 1) {
+              version = "thief"
+              complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>You chose to play the role of Thief</h1>"))
+            }
+            else {
+              complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, "<h1>You've already selected a role'</h1>"))
+            }
+          }
+        }
 
     val bindingFuture = Http().newServerAt("localhost", 8080).bind(route)
 
-    println(s"Server now online. Please navigate to http://localhost:8080/hello")
+    println(s"Server now online. Please navigate to http://localhost:8080/")
     scala.sys.addShutdownHook {
       bindingFuture
         .flatMap(_.unbind()) // trigger unbinding from the port
