@@ -6,14 +6,18 @@ import java.io._
 import java.net.URL
 import scala.io.Source
 import scala.util.{Failure, Success, Try}
-import com.google.common.graph.{GraphBuilder, MutableGraph}
+import com.google.common.graph.{GraphBuilder, MutableGraph, Graphs, Graph}
 
+import scala.collection.convert.ImplicitConversions.`collection AsScalaIterable`
 import scala.collection.mutable.ListBuffer
+import scala.util.Random
 
 class GraphLoader(fileName: String) {
   private val logger = LoggerFactory.getLogger(getClass)
   private val valuableNodes: ListBuffer[Int] = ListBuffer.empty
   private val graph: MutableGraph[String] = GraphBuilder.undirected().build()
+
+  private var curNode : Int = _
 
   logger.info(s"Loading the NetGraph from $fileName")
 
@@ -48,6 +52,45 @@ class GraphLoader(fileName: String) {
       logger.error(s"File not found: $fileName", e)
     case Failure(e) =>
       logger.error("An error occurred while loading the graph", e)
+  }
+
+  def chooseStartNode(chosenNode: Option[Int]) : Int = {
+    chosenNode match {
+      case Some(node) =>
+        val nodes = graph.nodes().toArray()
+        val remainingNodes = nodes.filter(_ != node)
+        val randomIndex = Random.nextInt(remainingNodes.length)
+        val chosenNode = remainingNodes(randomIndex)
+        println(chosenNode)
+        curNode = chosenNode.toString.toInt
+        chosenNode.toString.toInt
+      case None =>
+        val nodes = graph.nodes().toArray()
+        val randomIndex = Random.nextInt(nodes.length)
+        val chosenNode = nodes(randomIndex)
+        println(chosenNode)
+        curNode = chosenNode.toString.toInt
+        chosenNode.toString.toInt
+    }
+  }
+
+  def setStartNode(chosenNode: Int) : Boolean = {
+    curNode = chosenNode
+    graph.nodes().contains(chosenNode.toString)
+  }
+
+  def getNeighbors: List[Int] = {
+    val neighbors = graph.adjacentNodes(curNode.toString)
+    neighbors.map(_.toInt).toList
+  }
+
+  def findNeighbors(node: Int) : List[Int] = {
+    val neighbors = graph.adjacentNodes(node.toString)
+    neighbors.map(_.toInt).toList
+  }
+
+  def valuableNodeDist() : Int = {
+    0
   }
 
 }

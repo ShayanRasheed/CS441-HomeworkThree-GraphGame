@@ -7,7 +7,7 @@ ThisBuild / version := "0.1.0"
 ThisBuild / scalaVersion := "2.12.15"
 
 // Define the project name.
-name := "GraphWalks"
+name := "GraphGame"
 
 // Define library versions. Adjust the version numbers according to your needs.
 val scalaTestVersion = "3.2.15"
