@@ -100,8 +100,13 @@ class GraphLoader(fileName: String) {
   }
 
   def findNeighbors(node: Int) : List[Int] = {
-    val neighbors = graph.adjacentNodes(node.toString)
-    neighbors.map(_.toInt).toList
+    if(graph.nodes().contains(node.toString)) {
+      val neighbors = graph.adjacentNodes(node.toString)
+      neighbors.map(_.toInt).toList
+    }
+    else {
+      List.empty
+    }
   }
 
   def valuableNodeDist() : Option[Int] = {

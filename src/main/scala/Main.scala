@@ -25,13 +25,12 @@ object Main {
 
   private val perturbedLoader = new GraphLoader(config.getString("Local.perturbedFilePath"))
 
+  private var playingAsPolice : Option[Boolean] = None
+
   def main(args: Array[String]): Unit = {
     implicit val system: ActorSystem[Nothing] = ActorSystem(Behaviors.empty, "my-system")
-
     implicit val executionContext: ExecutionContextExecutor = system.executionContext
 
-    // Var to hold the version of the game being used
-    var playingAsPolice : Option[Boolean] = None
     var gameInProgress = false
 
     val route =
@@ -42,14 +41,16 @@ object Main {
               playingAsPolice = Some(true)
               logger.info ("Client chose policeman role")
 
-              val startNode = origLoader.chooseStartNode (None)
+              val startNode = origLoader.chooseStartNode(None)
+              val opponentNode = AILoader.chooseStartNode(Some(startNode))
+
               if (perturbedLoader.setStartNode (startNode) ) {
                 val result = outputNextMove (origLoader)
 
                 result match {
                   case Some (result) =>
                     gameInProgress = true
-                    complete(s"You chose to play the role of Policeman\nYour starting node is $startNode\n" + result.mkString (", ") )
+                    complete(s"You chose to play the role of Policeman\nYour starting node is $startNode\n" + result.mkString (", ") + s"\nThe thief will start on Node $opponentNode")
                   case None =>
                     complete("No neighbors found. You've lost the game.")
                 }
@@ -71,13 +72,15 @@ object Main {
                 logger.info ("Client chose thief role")
 
                 val startNode = origLoader.chooseStartNode(None)
+                val opponentNode = AILoader.chooseStartNode(Some(startNode))
+
                 if (perturbedLoader.setStartNode(startNode)) {
                   val result = outputNextMove(origLoader)
 
                   result match {
                     case Some(result) =>
                       gameInProgress = true
-                      complete(s"You chose to play the role of Thief\nYour starting node is $startNode\n" + result.mkString(", "))
+                      complete(s"You chose to play the role of Thief\nYour starting node is $startNode\n" + result.mkString(", ") + s"\nThe policeman will start on Node $opponentNode")
                     case None =>
                       complete("No neighbors found. You've lost the game.")
                   }
@@ -106,8 +109,28 @@ object Main {
                   case 2 =>
                     gameInProgress = false
                     complete("You've moved to a valuable node. You've won the game!")
+                  case 3 =>
+                    gameInProgress = false
+                    complete("You've caught the thief. You've won the game!")
                   case 1 =>
-                    complete(outputNextMove(origLoader))
+                    val opponentResult = chooseNextMove()
+                    val opponentOutput: String = opponentResult match {
+                      case 0 =>
+                        gameInProgress = false
+                        "\nYour opponent is on a node with no neighbors. You've won the game!"
+                      case -1 =>
+                        gameInProgress = false
+                        "\nYour opponent made a move that does not exist on the perturbed graph. You've on the game!"
+                      case 2 =>
+                        gameInProgress = false
+                        "\nThe thief has found a valuable node. You've lost the game."
+                      case 3 =>
+                        gameInProgress = false
+                        "\nYou've been caught by the policeman. You've lost the game"
+                      case 1 =>
+                        s"\nYour opponent has moved to node ${AILoader.getCurNode}"
+                    }
+                    complete(outputNextMove(origLoader) + opponentOutput)
                 }
               }
             }
@@ -143,7 +166,10 @@ object Main {
         logger.info("The thief has reached a valuable node")
         2
       }
-      // TODO: Add check if police is on same node as thief
+      else if(isPolice && (origLoader.getCurNode == AILoader.getCurNode)) {
+        logger.info("The policeman has caught the thief")
+        3
+      }
       else {
         logger.info("Move successful. The game will continue.")
         1
@@ -152,6 +178,20 @@ object Main {
     else {
       logger.info("Invalid move.")
       0
+    }
+  }
+
+  private def chooseNextMove() : Int = {
+    val neighbors = AILoader.getNeighbors
+
+    if(neighbors.isEmpty) {
+      0
+    }
+    else {
+      val confidenceScores = neighbors.map(x => findConfidenceScore(AILoader, x, returnType = false)).map(_.toDouble)
+      val zippedNodes = neighbors.zip(confidenceScores)
+      val bestNode = zippedNodes.maxBy(_._2)
+      validateMove(AILoader, bestNode._1, !playingAsPolice.get)
     }
   }
 
@@ -165,7 +205,7 @@ object Main {
       val maxDepth = config.getInt("App.maxDepth")
 
       val nextNodes = List("Here are the next nodes you can move to:\n")
-      val confidenceScores = neighbors.map(x => findConfidenceScore(loader, x))
+      val confidenceScores = neighbors.map(x => findConfidenceScore(loader, x, returnType = true))
 
       val result = nextNodes ::: confidenceScores
 
@@ -177,19 +217,22 @@ object Main {
         case None => s"No valuable nodes detected within $maxDepth moves"
       }
 
-      // TODO: Print other player's location
-
       Some(result :+ distOutput)
     }
   }
 
-  private def findConfidenceScore(loader: GraphLoader, node: Int) : String = {
+  private def findConfidenceScore(loader: GraphLoader, node: Int, returnType: Boolean) : String = {
     val origNeighbors : List[Int] = loader.findNeighbors(node)
     val perturbedNeighbors : List[Int] = perturbedLoader.findNeighbors(node)
 
     val commonNeighbors = origNeighbors.intersect(perturbedNeighbors)
     val confidenceScore = commonNeighbors.size.toDouble / origNeighbors.size
 
-    s"Node $node - Confidence Score: $confidenceScore\n"
+    if(returnType) {
+      s"Node $node - Confidence Score: $confidenceScore\n"
+    }
+    else {
+      confidenceScore.toString
+    }
   }
 }
