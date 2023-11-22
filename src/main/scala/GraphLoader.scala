@@ -56,6 +56,19 @@ class GraphLoader(fileName: String) {
       logger.error("An error occurred while loading the graph", e)
   }
 
+  def getCurNode : Int = {
+    curNode
+  }
+
+  def setCurNode(node: Int) : Unit = {
+    curNode = node
+    logger.info(s"Current Node is now $curNode")
+  }
+
+  def checkValuable(node: Int) : Boolean = {
+    valuableNodes.contains(node)
+  }
+
   def chooseStartNode(chosenNode: Option[Int]) : Int = {
     chosenNode match {
       case Some(node) =>
