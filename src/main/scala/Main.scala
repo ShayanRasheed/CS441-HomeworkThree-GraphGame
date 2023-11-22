@@ -101,6 +101,7 @@ object Main {
     else {
       val result = neighbors.map(x => findConfidenceScore(x))
 
+      val valNodeDist = origLoader.valuableNodeDist()
 
       Some(result)
     }

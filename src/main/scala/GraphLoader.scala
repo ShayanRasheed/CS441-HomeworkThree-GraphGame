@@ -6,7 +6,8 @@ import java.io._
 import java.net.URL
 import scala.io.Source
 import scala.util.{Failure, Success, Try}
-import com.google.common.graph.{GraphBuilder, MutableGraph, Graphs, Graph}
+import com.google.common.graph.{Graph, GraphBuilder, Graphs, MutableGraph}
+import com.typesafe.config.ConfigFactory
 
 import scala.collection.convert.ImplicitConversions.`collection AsScalaIterable`
 import scala.collection.mutable.ListBuffer
@@ -14,6 +15,7 @@ import scala.util.Random
 
 class GraphLoader(fileName: String) {
   private val logger = LoggerFactory.getLogger(getClass)
+  private val config = ConfigFactory.load()
   private val valuableNodes: ListBuffer[Int] = ListBuffer.empty
   private val graph: MutableGraph[String] = GraphBuilder.undirected().build()
 
@@ -90,7 +92,22 @@ class GraphLoader(fileName: String) {
   }
 
   def valuableNodeDist() : Int = {
+    val neighbors = findNeighbors()
+    println(neighbors)
     0
+  }
+
+  private def findNeighbors(): List[Int] = {
+    def findNodes(node: Int, currentDepth: Int): List[Int] = {
+      if (currentDepth == config.getInt("App.maxDepth")) {
+        List(node) // At the specified depth, return the current node
+      } else {
+        val neighbors = graph.adjacentNodes(node.toString)
+        neighbors.flatMap(neighbor => findNodes(neighbor.toInt, currentDepth + 1)).toList
+      }
+    }
+
+    findNodes(curNode, 0).distinct
   }
 
 }
