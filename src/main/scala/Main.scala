@@ -93,7 +93,6 @@ object Main {
 
   private def outputNextMove(): Option[List[String]] = {
     val neighbors = origLoader.getNeighbors
-    println(neighbors)
 
     if(neighbors.isEmpty) {
       None
@@ -102,6 +101,7 @@ object Main {
       val result = neighbors.map(x => findConfidenceScore(x))
 
       val valNodeDist = origLoader.valuableNodeDist()
+      println(valNodeDist)
 
       Some(result)
     }

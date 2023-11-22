@@ -91,23 +91,28 @@ class GraphLoader(fileName: String) {
     neighbors.map(_.toInt).toList
   }
 
-  def valuableNodeDist() : Int = {
-    val neighbors = findNeighbors()
-    println(neighbors)
-    0
+  def valuableNodeDist() : Option[Int] = {
+    val maxDepth = config.getInt("App.maxDepth")
+    val inputs = List.range(1, maxDepth + 1)
+    val outputs: List[List[Int]] = inputs.map(x => allNeighbors(x))
+    println(outputs)
+    outputs.indexWhere(list => list.exists(node => valuableNodes.contains(node))) match {
+      case -1 => None // No matching list found
+      case index => Some(index + 1)
+    }
   }
 
-  private def findNeighbors(): List[Int] = {
-    def findNodes(node: Int, currentDepth: Int): List[Int] = {
-      if (currentDepth == config.getInt("App.maxDepth")) {
+  private def allNeighbors(maxDepth: Int): List[Int] = {
+    def findNodes(node: Int, currentDepth: Int, maxDepth: Int): List[Int] = {
+      if (currentDepth == maxDepth) {
         List(node) // At the specified depth, return the current node
       } else {
         val neighbors = graph.adjacentNodes(node.toString)
-        neighbors.flatMap(neighbor => findNodes(neighbor.toInt, currentDepth + 1)).toList
+        neighbors.flatMap(neighbor => findNodes(neighbor.toInt, currentDepth + 1, maxDepth)).toList
       }
     }
 
-    findNodes(curNode, 0).distinct
+    findNodes(curNode, 0, maxDepth).distinct
   }
 
 }
