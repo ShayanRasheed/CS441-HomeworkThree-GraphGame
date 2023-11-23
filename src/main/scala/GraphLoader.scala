@@ -69,6 +69,10 @@ class GraphLoader(fileName: String) {
     valuableNodes.contains(node)
   }
 
+  // Choose Start Node
+  // Randomly selects a starting node
+  // If a node Id is sent as a parameter, then that node will not be selected
+  // To avoid choosing the same node twice
   def chooseStartNode(chosenNode: Option[Int]) : Int = {
     chosenNode match {
       case Some(node) =>
@@ -94,11 +98,15 @@ class GraphLoader(fileName: String) {
     graph.nodes().contains(chosenNode.toString)
   }
 
+  // getNeighbors
+  // returns all neighbors of current node
   def getNeighbors: List[Int] = {
     val neighbors = graph.adjacentNodes(curNode.toString)
     neighbors.map(_.toInt).toList
   }
 
+  // find neighbors
+  // returns all neighbors of a specific node
   def findNeighbors(node: Int) : List[Int] = {
     if(graph.nodes().contains(node.toString)) {
       val neighbors = graph.adjacentNodes(node.toString)
@@ -109,6 +117,10 @@ class GraphLoader(fileName: String) {
     }
   }
 
+  // valuableNodeDist
+  // calculates distance to the nearest valuable node
+  // checks within a range set by the parameter maxDepth
+  // returns None if there are no valuable nodes within this range
   def valuableNodeDist() : Option[Int] = {
     val maxDepth = config.getInt("App.maxDepth")
     val inputs = List.range(1, maxDepth + 1)
@@ -120,6 +132,8 @@ class GraphLoader(fileName: String) {
     }
   }
 
+  // allNeighbors
+  // Finds all nodes that are a certain distance away from the specified node
   private def allNeighbors(maxDepth: Int): List[Int] = {
     def findNodes(node: Int, currentDepth: Int, maxDepth: Int): List[Int] = {
       if (currentDepth == maxDepth) {
