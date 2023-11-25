@@ -139,7 +139,9 @@ object Main {
           }
         }
 
-    val bindingFuture = Http().newServerAt("localhost", 8080).bind(route)
+    val interface = config.getString("App.interface")
+    val port = config.getInt("App.port")
+    val bindingFuture = Http().newServerAt(interface, port).bind(route)
 
     println(s"Server now online. Please navigate to http://localhost:8080/")
 

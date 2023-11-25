@@ -35,6 +35,8 @@ by sending http requests. The other player's moves will be determined automatica
 
     Be sure to check application.conf prior to compiling to ensure all the
     configuration parameters are set to the values you'd like them to be.
+    This includes the values for the interface and port used to submit http
+    requests. A parameter for each can be found in application.conf
    
     ```
    sbt clean compile
@@ -53,7 +55,7 @@ by sending http requests. The other player's moves will be determined automatica
    ```
 
 ## Deployment Video
-Here is a [video demonstrating deployment of the program on AWS]() 
+Here is a [video demonstrating deployment of the program on AWS](https://youtu.be/ucCciJyNj1o) 
 
 ## Dependencies
 
@@ -79,19 +81,19 @@ After a graph is loaded, the http server will be initialized. From here, a user 
 the policeman or the thief. They must make this choice in order to begin the game and
 submit moves. Once they have selected a role, they will be notified of their starting position.
 
-## Client submits their moves:
+### Client submits their moves:
 Now, the client can submit their next move. After every move, the client will be sent a list
 of all nodes that they can move to along with each node's confidence score that indicates
 how similar that node is to its counterpart on the perturbed graph. They will also be sent
 the distance to the nearest valuable node in the graph within a certain range determined by 
 the maxDepth parameter in application.config
 
-## AI opponent makes their move:
+### AI opponent makes their move:
 Once a player has submitted a move, the AI opponent will make their move. The program will
 check all neighbors to the current node and select the node that has the highest confidence score.
 The client will be notified of the opponent's position after it makes a move.
 
-## Winning/Losing Conditions:
+### Winning/Losing Conditions:
 The client will win the game if they are playing as the police and move to the same
 node as the thief, or if they are playing as the thief and move to a node that is valuable.
 Likewise, they will lose the game if the AI opponent accomplishes either of these

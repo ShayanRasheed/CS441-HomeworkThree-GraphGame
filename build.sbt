@@ -57,10 +57,12 @@ run / javaOptions ++= Seq(
 
 exportJars := true
 
-//assemblyMergeStrategy in assembly := {
-//  case PathList("META-INF", _*) => MergeStrategy.discard
-//  case _                        => MergeStrategy.first
-//}
+assemblyMergeStrategy in assembly := {
+  case PathList("akka-http-version.conf") => MergeStrategy.concat
+  case PathList("reference.conf") => MergeStrategy.concat
+  case PathList("META-INF", _*) => MergeStrategy.discard
+  case _                        => MergeStrategy.first
+}
 
 // Define the main class. Replace with the actual main class of your application.
 Compile / mainClass := Some("com.lsc.Main")
